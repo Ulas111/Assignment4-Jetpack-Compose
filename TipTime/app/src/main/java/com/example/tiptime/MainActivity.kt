@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.example.tiptime
+import androidx.compose.ui.text.input.ImeAction
 import androidx.annotation.StringRes
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
@@ -97,8 +98,13 @@ fun TipTimeLayout() {
                 .align(Alignment.Start)
         )
 
+
         EditNumberField(
             label = R.string.bill_amount,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
             value = amountInput,
             onValueChange = { amountInput = it },
             modifier = Modifier
@@ -107,14 +113,21 @@ fun TipTimeLayout() {
         )
 
 
+
+
         EditNumberField(
             label = R.string.how_was_the_service,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
             value = tipInput,
             onValueChange = { tipInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
+
 
 
         Text(
@@ -128,9 +141,11 @@ fun TipTimeLayout() {
 
 
 
+
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    keyboardOptions: KeyboardOptions,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -142,12 +157,11 @@ fun EditNumberField(
             Text(stringResource(label))
         },
         singleLine = true,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number
-        ),
+        keyboardOptions = keyboardOptions,
         modifier = modifier
     )
 }
+
 
 
 /**
