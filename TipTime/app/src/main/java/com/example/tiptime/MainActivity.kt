@@ -94,7 +94,9 @@ fun TipTimeLayout() {
 
         EditNumberField(
             value = amountInput,
-            onValueChange = { amountInput = it },
+            onValueChange = {
+                amountInput = it
+            },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
