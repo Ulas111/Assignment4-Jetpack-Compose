@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package com.example.tiptime
-
+import androidx.annotation.StringRes
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.runtime.remember
@@ -73,8 +73,13 @@ fun TipTimeLayout() {
         mutableStateOf("")
     }
 
+    var tipInput by remember {
+        mutableStateOf("")
+    }
+
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount)
+    val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount, tipPercent)
 
     Column(
         modifier = Modifier
@@ -93,14 +98,24 @@ fun TipTimeLayout() {
         )
 
         EditNumberField(
+            label = R.string.bill_amount,
             value = amountInput,
-            onValueChange = {
-                amountInput = it
-            },
+            onValueChange = { amountInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
+
+
+        EditNumberField(
+            label = R.string.how_was_the_service,
+            value = tipInput,
+            onValueChange = { tipInput = it },
+            modifier = Modifier
+                .padding(bottom = 32.dp)
+                .fillMaxWidth()
+        )
+
 
         Text(
             text = stringResource(R.string.tip_amount, tip),
@@ -112,8 +127,10 @@ fun TipTimeLayout() {
 }
 
 
+
 @Composable
 fun EditNumberField(
+    @StringRes label: Int,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -121,16 +138,17 @@ fun EditNumberField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        singleLine = true,
         label = {
-            Text(stringResource(R.string.bill_amount))
+            Text(stringResource(label))
         },
+        singleLine = true,
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number
         ),
         modifier = modifier
     )
 }
+
 
 /**
  * Calculates the tip based on the user input and format the tip amount
