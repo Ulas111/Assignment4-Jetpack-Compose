@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package com.example.tiptime
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Switch
 import androidx.compose.ui.text.input.ImeAction
 import androidx.annotation.StringRes
 import androidx.compose.foundation.text.KeyboardOptions
@@ -78,6 +81,10 @@ fun TipTimeLayout() {
         mutableStateOf("")
     }
 
+    var roundUp by remember {
+        mutableStateOf(false)
+    }
+
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount, tipPercent)
@@ -114,7 +121,6 @@ fun TipTimeLayout() {
 
 
 
-
         EditNumberField(
             label = R.string.how_was_the_service,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -128,6 +134,12 @@ fun TipTimeLayout() {
                 .fillMaxWidth()
         )
 
+
+        RoundTheTipRow(
+            roundUp = roundUp,
+            onRoundUpChanged = { roundUp = it },
+            modifier = Modifier.padding(bottom = 32.dp)
+        )
 
 
         Text(
@@ -161,6 +173,31 @@ fun EditNumberField(
         modifier = modifier
     )
 }
+
+@Composable
+fun RoundTheTipRow(
+    roundUp: Boolean,
+    onRoundUpChanged: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(R.string.round_up_tip)
+        )
+
+        Switch(
+            checked = roundUp,
+            onCheckedChange = onRoundUpChanged
+        )
+    }
+}
+
 
 
 
