@@ -22,3 +22,13 @@ Getting Started
 2. Download the sample.
 3. Import the sample into Android Studio.
 4. Build and run the sample.
+
+
+## Codelab 2 - Additional Practice
+
+Task: Add leading icons to the input fields.
+
+Requirements:
+- Display a money icon in the Bill Amount field.
+- Display a percent icon in the Tip Percentage field.
+- Keep the tip calculation working correctly.

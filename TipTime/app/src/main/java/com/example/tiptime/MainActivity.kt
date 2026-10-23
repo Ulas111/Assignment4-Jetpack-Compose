@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package com.example.tiptime
+import androidx.annotation.DrawableRes
+import androidx.compose.material3.Icon
+import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Switch
@@ -108,6 +111,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
@@ -123,6 +127,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.how_was_the_service,
+            leadingIcon = R.drawable.percent,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -154,9 +159,11 @@ fun TipTimeLayout() {
 
 
 
+
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     keyboardOptions: KeyboardOptions,
     value: String,
     onValueChange: (String) -> Unit,
@@ -168,11 +175,18 @@ fun EditNumberField(
         label = {
             Text(stringResource(label))
         },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = leadingIcon),
+                contentDescription = null
+            )
+        },
         singleLine = true,
         keyboardOptions = keyboardOptions,
         modifier = modifier
     )
 }
+
 
 @Composable
 fun RoundTheTipRow(
