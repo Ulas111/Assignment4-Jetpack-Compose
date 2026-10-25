@@ -80,7 +80,9 @@ fun ArtSpaceScreen() {
 
         Box(
             modifier = Modifier
-                .size(260.dp)
+                .widthIn(max = 420.dp)
+                .fillMaxWidth(0.9f)
+                .aspectRatio(1f)
                 .border(6.dp, Color.LightGray)
                 .background(Color(0xFFF2EDF6)),
             contentAlignment = Alignment.Center
@@ -97,6 +99,7 @@ fun ArtSpaceScreen() {
 
         Column(
             modifier = Modifier
+                .widthIn(max = 600.dp)
                 .fillMaxWidth()
                 .background(Color(0xFFEAE6F2))
                 .padding(16.dp)
@@ -115,7 +118,9 @@ fun ArtSpaceScreen() {
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .widthIn(max = 600.dp)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
@@ -130,9 +135,6 @@ fun ArtSpaceScreen() {
             ) {
                 Text("Previous")
             }
-
-
-
             Button(
                 onClick = {
                     currentArtwork = if (currentArtwork == 3) {
