@@ -1,6 +1,9 @@
 
 package com.example.artspace
 
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -54,9 +57,13 @@ fun ArtSpaceScreen() {
                 .background(Color(0xFFF2EDF6)),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Artwork Image",
-                textAlign = TextAlign.Center
+            Image(
+                painter = painterResource(
+                    id = R.drawable.starry_night
+                ),
+                contentDescription = "The Starry Night by Vincent van Gogh",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Fit
             )
         }
 
