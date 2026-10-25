@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.example.tiptime
+import androidx.annotation.VisibleForTesting
 import androidx.annotation.DrawableRes
 import androidx.compose.material3.Icon
 import androidx.compose.ui.res.painterResource
@@ -221,7 +222,8 @@ fun RoundTheTipRow(
  * Example would be "$10.00".
  */
 
-private fun calculateTip(
+@VisibleForTesting
+internal fun calculateTip(
     amount: Double,
     tipPercent: Double = 15.0,
     roundUp: Boolean
