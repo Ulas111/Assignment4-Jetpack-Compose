@@ -1,6 +1,10 @@
 
 package com.example.tiptime
 
+import androidx.compose.ui.test.assertIsOn
+import androidx.compose.ui.test.assertIsOff
+import androidx.compose.ui.test.isToggleable
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
@@ -38,4 +42,49 @@ class TipUITests {
             .onNodeWithText("Tip Amount: $expectedTip")
             .assertExists()
     }
+
+    @Test
+    fun calculate_tip_with_round_up() {
+
+        composeTestRule.setContent {
+            TipTimeTheme {
+                TipTimeLayout()
+            }
+        }
+
+        composeTestRule
+            .onNodeWithText("Bill Amount")
+            .performTextInput("53")
+
+        composeTestRule
+            .onNodeWithText("Tip Percentage")
+            .performTextInput("18")
+
+        val normalTip =
+            NumberFormat.getCurrencyInstance().format(9.54)
+
+        composeTestRule
+            .onNodeWithText("Tip Amount: $normalTip")
+            .assertExists()
+
+        composeTestRule
+            .onNode(isToggleable())
+            .assertIsOff()
+
+        composeTestRule
+            .onNode(isToggleable())
+            .performClick()
+
+        composeTestRule
+            .onNode(isToggleable())
+            .assertIsOn()
+
+        val roundedTip =
+            NumberFormat.getCurrencyInstance().format(10)
+
+        composeTestRule
+            .onNodeWithText("Tip Amount: $roundedTip")
+            .assertExists()
+    }
+
 }
