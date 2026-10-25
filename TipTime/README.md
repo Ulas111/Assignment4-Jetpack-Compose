@@ -32,3 +32,4 @@ Requirements:
 - Display a money icon in the Bill Amount field.
 - Display a percent icon in the Tip Percentage field.
 - Keep the tip calculation working correctly.
+
