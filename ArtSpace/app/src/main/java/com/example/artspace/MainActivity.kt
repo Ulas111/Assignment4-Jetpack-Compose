@@ -1,6 +1,10 @@
 
 package com.example.artspace
 
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
@@ -41,6 +45,30 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ArtSpaceScreen() {
 
+    var currentArtwork by remember {
+        mutableIntStateOf(1)
+    }
+
+
+    val imageRes = when (currentArtwork) {
+        1 -> R.drawable.starry_night
+        2 -> R.drawable.great_wave
+        else -> R.drawable.girl_with_pearl
+    }
+
+    val artworkTitle = when (currentArtwork) {
+        1 -> "The Starry Night"
+        2 -> "The Great Wave off Kanagawa"
+        else -> "Girl with a Pearl Earring"
+    }
+
+    val artworkArtist = when (currentArtwork) {
+        1 -> "Vincent van Gogh (1889)"
+        2 -> "Katsushika Hokusai (c. 1831)"
+        else -> "Johannes Vermeer (c. 1665)"
+    }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,9 +87,9 @@ fun ArtSpaceScreen() {
         ) {
             Image(
                 painter = painterResource(
-                    id = R.drawable.starry_night
+                    id = imageRes
                 ),
-                contentDescription = "The Starry Night by Vincent van Gogh",
+                contentDescription = "$artworkTitle by $artworkArtist",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit
             )
@@ -74,14 +102,14 @@ fun ArtSpaceScreen() {
                 .padding(16.dp)
         ) {
             Text(
-                text = "The Starry Night",
+                text = artworkTitle,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
 
             Text(
-                text = "Vincent van Gogh (1889)",
+                text = artworkArtist,
                 color = Color.DarkGray
             )
         }
@@ -90,13 +118,33 @@ fun ArtSpaceScreen() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = { }) {
+
+            Button(
+                onClick = {
+                    currentArtwork = if (currentArtwork == 1) {
+                        3
+                    } else {
+                        currentArtwork - 1
+                    }
+                }
+            ) {
                 Text("Previous")
             }
 
-            Button(onClick = { }) {
+
+
+            Button(
+                onClick = {
+                    currentArtwork = if (currentArtwork == 3) {
+                        1
+                    } else {
+                        currentArtwork + 1
+                    }
+                }
+            ) {
                 Text("Next")
             }
+
         }
     }
 }
